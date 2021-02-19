@@ -9,6 +9,8 @@ interface IVenus {
 
     function borrow(uint256 borrowAmount) external returns (uint256);
 
+    function repayBorrow(uint256 borrowAmount) external returns (uint256);
+
     function exchangeRateStored() external view returns (uint256);
 
     function getCash() external view returns (uint256);

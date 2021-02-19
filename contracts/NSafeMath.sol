@@ -4,7 +4,7 @@ pragma solidity ^0.6.8;
 
 import {SafeMath} from "@openzeppelin/contracts/math/SafeMath.sol";
 
-contract NSaveMath {
+contract NSafeMath {
     uint256 constant WAD = 10**18;
     uint256 constant RAY = 10**27;
 

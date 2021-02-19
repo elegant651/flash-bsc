@@ -3,10 +3,7 @@ pragma solidity ^0.6.8;
 import "./BEP20FlashLoan.sol";
 import "./IBEP20.sol";
 
-// ERC20 Flashloan Example
 contract depositPool is BEP20FlashLoan{
-    // set the Lender contract address to a trusted flashmodule contract
-	uint256 public totalfees; // total fees collected till now
   mapping(address => uint256) public balances;
 
   constructor() public {}
