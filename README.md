@@ -1,15 +1,28 @@
 # Flash BSC
 
-The user acquires an NFT coupon with a unique ticket number by purchasing ticket. A random ticket is drawn at a fixed time interval and eliminates the number from the pool. If the ticket number is the same as the lottery number, the user can get the coupon. Users can swap coupon to dai with Aave Flash loan easily. 
+## Leveraged Loan
 
-Smart contract: We use Kovan testnet to deploy smart contracts. \
-- Coupon.sol : ERC-721 based NFT contract. it includes buyTicket, distribution, claimPrize, claimReturn.
-- Faucet.sol : ERC-20 based Faucet contract
-- RandomNumberConsumer.sol : Use chainlink VRF for generate random number
-- AVGFlashLoan.sol : Aave flash loan, which includes flashloan =>swap=>deposit=>borrow=>payback flashloan process. At first, loans as many dai as the value of the coupon. then swap another coupon (less current value) with that dai (dex - uniswap or 1inch). After sell to existing coupon then repay the amount of dai to aave. (...ing)
-Frontend: React, web3 library, IPFS, bootstrap\
+To make it easy to create a leveraged position, the `BEP20FlashLoan` can utilise a flashloan together. The contract needs to have some `BUSD` before executing the action.
 
+Here's scenario.
+1. Lender deposits 1 BUSD into the lending pool contract. Lender expects a return of yield for a successful flash loan.
+2. Borrower can borrow the tokens and leveraged deposit to gain yield within flashloan time. it convert to vtoken from BEP token.
+3. Once transaction is about to confirm, as `withdraw`, it convert vtoken to token in Venus protocol, repay the token to lender.
 
+Smart contract: We use Binance smart chain testnet to deploy smart contracts. \
+- BEP20FlashBorrower.sol : Flash loan, which includes mint and get vToken at first, then borrow enough asset to buy back. Once done, pay back flashloan then convert vToken to token as withdraw. it inherit from `Venus.sol`
+- BEP20FlashLoan.sol : it send to borrower the tokens and execute flash loan. And  after flash loan, it repay the dept.
+- flashModule.sol : Borrower contract, which inherit from `BEP20FlashBorrower.sol`
+- depositPool.sol : Lender can deposit the BEP token. it inherit from `BEP20FlashLoan.sol`
+- Venus.sol : `https://docs.venus.io/docs/vtokens`
+
+Frontend: React, web3 library, bootstrap
+
+Contract Address (BSC Testnet):
+depositPool: 0x40D6f23146F2B96821b2451b8C7d94645d675Fc6
+flashModule: 0x78F5DD08A3333F8537AC115fB2FE87A8771b9057
+
+[WIP]
 
 ## Available Scripts
 

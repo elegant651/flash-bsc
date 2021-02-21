@@ -14,14 +14,14 @@ contract BEP20FlashLoan {
         // record debt
         uint256 debt = 10;
 
-        // send borrower the tokens
+        // send to borrower the tokens
         require(IBEP20(token).transfer(msg.sender, amount * 10**IBEP20(token).decimals()), "borrow failed");
 
         // execute flash loan
         IBEP20FlashBorrower(msg.sender).executeOnBEP20FlashLoan(token, amount, debt);
 
         // repay the debt
-        // require(IBEP20(token).transferFrom(msg.sender, address(this), debt), "repayment failed");
+        require(IBEP20(token).transferFrom(msg.sender, address(this), debt), "repayment failed");
     }
 
     function tokenBorrowerFee() public view returns (uint256) {

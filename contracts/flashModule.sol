@@ -4,9 +4,7 @@ import "./BEP20FlashBorrower.sol";
 import "./IBEP20.sol";
 
 
-// ERC20 Flashloan Example
 contract flashModule is BEP20FlashBorrower{
-    // set the Lender contract address to a trusted flashmodule contract
   uint256 public totalfees; // total fees collected till now
   mapping(address => uint256) public balances;
 

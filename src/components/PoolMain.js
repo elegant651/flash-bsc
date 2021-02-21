@@ -42,6 +42,9 @@ export default function Main() {
     //     createSubArray(allCoupons);
     //   }
     // }
+    await getBalance()
+    await getTotalSupply()
+    await getPoolBalance()
   }
 
   const getBalance = async () => {
@@ -98,11 +101,12 @@ export default function Main() {
               Deposit Pool: 6 BUSD
             </div>
             <div style={{ marginBottom: "10px" }}>
-              Balance: 18 BUSD
+              Balance: 18.002 BUSD
             </div>
             <div style={{ marginBottom: "5px" }}>
-              {/* Pool Balance: {poolBalance} <br />
-              Pool TotalSupply: {totalSupply} */}
+              earning: {balance} <br />
+              Pool Balance: {poolBalance} <br />
+              Pool TotalSupply: {totalSupply} 
             </div>
           </Card.Body>
       </Card>
