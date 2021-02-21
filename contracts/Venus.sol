@@ -11,9 +11,9 @@ contract Venus {
     address internal vBnbAddress;
 
     constructor() public {
-        // BUSD Address: 0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47
+        // BUSD Address: 0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee
         // vBUSD Address: 0x08e0A5575De71037aE36AbfAfb516595fE68e5e4
-        tokenAddress = 0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47;
+        tokenAddress = 0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee;
         vTokenAddress = 0x08e0A5575De71037aE36AbfAfb516595fE68e5e4;
         vBnbAddress = 0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c;
     }
@@ -50,6 +50,31 @@ contract Venus {
         uint256 result = IVenus(vAsset).repayBorrow(amount);
 
         return result == 0 ? true : false;
+    }
+
+    function getBalance(address vAsset) public view returns (uint256) {
+        uint256 balance = IBEP20(vAsset).balanceOf(address(this));
+        return balance;
+    }
+
+    function getCash(address vAsset) public view returns (uint256) {
+        uint256 cash = IVenus(vAsset).getCash();
+        return cash;
+    }
+
+    function getTotalBorrows(address vAsset) public view returns (uint256) {
+        uint256 totalBorrows = IVenus(vAsset).totalBorrows();
+        return totalBorrows;
+    }
+
+    function getTotalReserves(address vAsset) public view returns (uint256) {
+        uint256 totalReserves = IVenus(vAsset).totalReserves();
+        return totalReserves;
+    }
+
+    function getTotalSupply(address vAsset) public view returns (uint256) {
+        uint256 totalSupply = IVenus(vAsset).totalSupply();
+        return totalSupply;
     }
 
     function getPoolBalance(address vAsset) public view returns (uint256) {

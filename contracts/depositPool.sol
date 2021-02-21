@@ -4,21 +4,22 @@ import "./BEP20FlashLoan.sol";
 import "./IBEP20.sol";
 
 contract depositPool is BEP20FlashLoan{
-  mapping(address => uint256) public balances;
-
   constructor() public {}
-    
+
   function deposit(
-    address token,
-    address onbehalfOf,
-    uint256 amount
+    address token, //0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee
+    uint256 amount // 1
   ) public {
-    IBEP20(token).transferFrom(onbehalfOf, address(this), amount);
+
+    require(
+      IBEP20(token).transferFrom(msg.sender, address(this), amount * 10**IBEP20(token).decimals()),
+      "BEP20: transferFrom failed !!"
+    );
   }
 	
 
   function withdraw(
-    address token,
+    address token, //BUSD
     address onbehalfOf
   ) public {
     IBEP20(token).transfer(onbehalfOf, IBEP20(token).balanceOf(address(this)));
